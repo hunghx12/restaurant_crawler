@@ -13,7 +13,7 @@ namespace Avengers.WorldSaver
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"");
+            optionsBuilder.UseSqlServer(@"connection_string_here_guys");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
