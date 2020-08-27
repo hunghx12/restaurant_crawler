@@ -4,14 +4,16 @@ using Avengers.WorldSaver;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Avengers.Migrations
 {
     [DbContext(typeof(YummyContext))]
-    partial class YummyContextModelSnapshot : ModelSnapshot
+    [Migration("20200826171122_DropEverythingAgain")]
+    partial class DropEverythingAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,45 +138,6 @@ namespace Avengers.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Options");
-                });
-
-            modelBuilder.Entity("Avengers.Models.Picture", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BgColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhotoDetailUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PredefineAlbumID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReviewItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalLikes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Width")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReviewItemId");
-
-                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Avengers.Models.RestaurantItem", b =>
@@ -410,109 +373,6 @@ namespace Avengers.Migrations
                     b.ToTable("RestaurantItems");
                 });
 
-            modelBuilder.Entity("Avengers.Models.ReviewItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<double>("AvgRating")
-                        .HasColumnType("float");
-
-                    b.Property<bool?>("CanDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanEdit")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedOnTimeDiff")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DeviceType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DeviceUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EditUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("HasThitCay")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsAllowComment")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsDirectDetail")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsDraft")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsFirstUserReview")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsLiked")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OptionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ResId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TotalComment")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalLike")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalPictures")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalView")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalViews")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VideoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OptionsId");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("VideoId");
-
-                    b.ToTable("ReviewItems");
-                });
-
             modelBuilder.Entity("Avengers.Models.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -554,92 +414,6 @@ namespace Avengers.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Avengers.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Idx")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsFollow")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSelf")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Level")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MobileCover")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Rank")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TotalPictures")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TotalPicturesFormat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TotalReviews")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TotalReviewsFormat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TrustPercent")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlAlbums")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlReviews")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VerifyingPercent")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Avengers.Models.Video", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Videos");
-                });
-
             modelBuilder.Entity("Avengers.Models.LstReview", b =>
                 {
                     b.HasOne("Avengers.Models.RestaurantItem", null)
@@ -647,33 +421,11 @@ namespace Avengers.Migrations
                         .HasForeignKey("RestaurantItemId");
                 });
 
-            modelBuilder.Entity("Avengers.Models.Picture", b =>
-                {
-                    b.HasOne("Avengers.Models.ReviewItem", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("ReviewItemId");
-                });
-
             modelBuilder.Entity("Avengers.Models.RestaurantItem", b =>
                 {
                     b.HasOne("Avengers.Models.Note", "Note")
                         .WithMany()
                         .HasForeignKey("NoteId");
-                });
-
-            modelBuilder.Entity("Avengers.Models.ReviewItem", b =>
-                {
-                    b.HasOne("Avengers.Models.Options", "Options")
-                        .WithMany()
-                        .HasForeignKey("OptionsId");
-
-                    b.HasOne("Avengers.Models.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-
-                    b.HasOne("Avengers.Models.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId");
                 });
 
             modelBuilder.Entity("Avengers.Models.Service", b =>

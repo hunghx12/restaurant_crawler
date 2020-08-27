@@ -4,20 +4,43 @@ using Avengers.WorldSaver;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Avengers.Migrations
 {
     [DbContext(typeof(YummyContext))]
-    partial class YummyContextModelSnapshot : ModelSnapshot
+    [Migration("20200826165131_DropVideoAgain")]
+    partial class DropVideoAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Avengers.Models.Hashtag", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReviewItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewItemId");
+
+                    b.ToTable("Hashtags");
+                });
 
             modelBuilder.Entity("Avengers.Models.LstReview", b =>
                 {
@@ -499,16 +522,11 @@ namespace Avengers.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("VideoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OptionsId");
 
                     b.HasIndex("OwnerId");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("ReviewItems");
                 });
@@ -586,6 +604,9 @@ namespace Avengers.Migrations
                     b.Property<int?>("Rank")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ReviewItemId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TotalPictures")
                         .HasColumnType("int");
 
@@ -618,26 +639,16 @@ namespace Avengers.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ReviewItemId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Avengers.Models.Video", b =>
+            modelBuilder.Entity("Avengers.Models.Hashtag", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Videos");
+                    b.HasOne("Avengers.Models.ReviewItem", null)
+                        .WithMany("Hashtags")
+                        .HasForeignKey("ReviewItemId");
                 });
 
             modelBuilder.Entity("Avengers.Models.LstReview", b =>
@@ -670,10 +681,6 @@ namespace Avengers.Migrations
                     b.HasOne("Avengers.Models.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
-
-                    b.HasOne("Avengers.Models.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId");
                 });
 
             modelBuilder.Entity("Avengers.Models.Service", b =>
@@ -681,6 +688,13 @@ namespace Avengers.Migrations
                     b.HasOne("Avengers.Models.RestaurantItem", null)
                         .WithMany("Services")
                         .HasForeignKey("RestaurantItemId");
+                });
+
+            modelBuilder.Entity("Avengers.Models.User", b =>
+                {
+                    b.HasOne("Avengers.Models.ReviewItem", null)
+                        .WithMany("UserLikes")
+                        .HasForeignKey("ReviewItemId");
                 });
 #pragma warning restore 612, 618
         }

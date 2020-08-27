@@ -4,14 +4,16 @@ using Avengers.WorldSaver;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Avengers.Migrations
 {
     [DbContext(typeof(YummyContext))]
-    partial class YummyContextModelSnapshot : ModelSnapshot
+    [Migration("20200826155906_AddUsers")]
+    partial class AddUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +143,9 @@ namespace Avengers.Migrations
             modelBuilder.Entity("Avengers.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BgColor")
                         .HasColumnType("nvarchar(max)");
@@ -413,7 +417,9 @@ namespace Avengers.Migrations
             modelBuilder.Entity("Avengers.Models.ReviewItem", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AvgRating")
                         .HasColumnType("float");
@@ -557,7 +563,9 @@ namespace Avengers.Migrations
             modelBuilder.Entity("Avengers.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
@@ -584,6 +592,9 @@ namespace Avengers.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Rank")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReviewItemId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TotalPictures")
@@ -618,13 +629,17 @@ namespace Avengers.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ReviewItemId");
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Avengers.Models.Video", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
@@ -681,6 +696,13 @@ namespace Avengers.Migrations
                     b.HasOne("Avengers.Models.RestaurantItem", null)
                         .WithMany("Services")
                         .HasForeignKey("RestaurantItemId");
+                });
+
+            modelBuilder.Entity("Avengers.Models.User", b =>
+                {
+                    b.HasOne("Avengers.Models.ReviewItem", null)
+                        .WithMany("UserLikes")
+                        .HasForeignKey("ReviewItemId");
                 });
 #pragma warning restore 612, 618
         }

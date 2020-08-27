@@ -9,15 +9,11 @@ namespace Avengers
     {
         static async Task Main(string[] args)
         {
-            var currentPage = 0;
-            while (true)
-            {
-                var stillRun = await HomePagePlacesPaparazzi.GetIntance().RunLikeABitch(currentPage++);
-                if (!stillRun) break;
-                Console.WriteLine("Sleep 1s to avoid DoS Server");
-                Thread.Sleep(1000);
-            }
+            //await HomePagePlacesPaparazzi.GetIntance().RunLikeABitch();
 
+            // Be careful. Please consider using parallel, or you will have to pay for it :)
+            // I mean it. I've spent 13 hours on this for my stupidity.
+            await RestaurantReviewPaparazzi.GetIntance().RunLikeABitch();
         }
     }
 }

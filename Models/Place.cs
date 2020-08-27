@@ -39,7 +39,7 @@ namespace Avengers.Models
         public double? AvgRating { get; set; }
     }
 
-    public class Item
+    public class RestaurantItem
     {
         public int Id { get; set; }
         public int? CateId { get; set; }
@@ -120,12 +120,12 @@ namespace Avengers.Models
         public string MobileBookingUrl { get; set; }
     }
 
-    public class Place
+    public class PlaceRoot
     {
         public int CityId { get; set; }
         public string ExcludeIds { get; set; }
         public string Query { get; set; }
-        public List<Item> Items { get; set; }
+        public List<RestaurantItem> Items { get; set; }
         public int? Count { get; set; }
         public int? Total { get; set; }
         public string LastId { get; set; }

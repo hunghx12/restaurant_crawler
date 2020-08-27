@@ -4,20 +4,45 @@ using Avengers.WorldSaver;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Avengers.Migrations
 {
     [DbContext(typeof(YummyContext))]
-    partial class YummyContextModelSnapshot : ModelSnapshot
+    [Migration("20200826145500_AddReview")]
+    partial class AddReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Avengers.Models.Hashtag", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReviewItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewItemId");
+
+                    b.ToTable("Hashtags");
+                });
 
             modelBuilder.Entity("Avengers.Models.LstReview", b =>
                 {
@@ -138,10 +163,81 @@ namespace Avengers.Migrations
                     b.ToTable("Options");
                 });
 
+            modelBuilder.Entity("Avengers.Models.Owner", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Idx")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsFollow")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSelf")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MobileCover")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Rank")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalPictures")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TotalPicturesFormat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TotalReviews")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TotalReviewsFormat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TrustPercent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlAlbums")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlReviews")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("VerifyingPercent")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Owners");
+                });
+
             modelBuilder.Entity("Avengers.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BgColor")
                         .HasColumnType("nvarchar(max)");
@@ -413,7 +509,9 @@ namespace Avengers.Migrations
             modelBuilder.Entity("Avengers.Models.ReviewItem", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AvgRating")
                         .HasColumnType("float");
@@ -554,10 +652,12 @@ namespace Avengers.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Avengers.Models.User", b =>
+            modelBuilder.Entity("Avengers.Models.UserLike", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
@@ -584,6 +684,9 @@ namespace Avengers.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Rank")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReviewItemId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TotalPictures")
@@ -618,13 +721,17 @@ namespace Avengers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("ReviewItemId");
+
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("Avengers.Models.Video", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
@@ -638,6 +745,13 @@ namespace Avengers.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Videos");
+                });
+
+            modelBuilder.Entity("Avengers.Models.Hashtag", b =>
+                {
+                    b.HasOne("Avengers.Models.ReviewItem", null)
+                        .WithMany("Hashtags")
+                        .HasForeignKey("ReviewItemId");
                 });
 
             modelBuilder.Entity("Avengers.Models.LstReview", b =>
@@ -667,7 +781,7 @@ namespace Avengers.Migrations
                         .WithMany()
                         .HasForeignKey("OptionsId");
 
-                    b.HasOne("Avengers.Models.User", "Owner")
+                    b.HasOne("Avengers.Models.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
@@ -681,6 +795,13 @@ namespace Avengers.Migrations
                     b.HasOne("Avengers.Models.RestaurantItem", null)
                         .WithMany("Services")
                         .HasForeignKey("RestaurantItemId");
+                });
+
+            modelBuilder.Entity("Avengers.Models.UserLike", b =>
+                {
+                    b.HasOne("Avengers.Models.ReviewItem", null)
+                        .WithMany("UserLikes")
+                        .HasForeignKey("ReviewItemId");
                 });
 #pragma warning restore 612, 618
         }
